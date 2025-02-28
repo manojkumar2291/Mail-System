@@ -1,0 +1,14 @@
+const express = require('express');
+const { register, login } = require('../controllers/authController');
+const { saveSMTPConfig, getSMTPConfig } = require('../controllers/smtpController');
+const { sendEmail } = require('../controllers/emailController');
+const { getSentEmails } = require('../controllers/emailController');
+const router = express.Router();
+const authenticate = require('../middleware/authenticate');
+router.post('/register', register);
+router.post('/login', login);
+router.post('/smtp', saveSMTPConfig);
+router.get('/smtp', getSMTPConfig);
+router.post('/email/send', sendEmail);
+router.get('/sent-emails', authenticate, getSentEmails);
+module.exports = router;
